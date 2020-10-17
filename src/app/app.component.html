@@ -9,8 +9,22 @@
     <div id="content">
 
       <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-        <!-- Navbar -->
+        <div class="row">
+          <div class="col-s-6">
+            <a (click)="toggleUserProfile('owner')" href="#" class="btn btn-danger">
+              <span class="text">I am an owner</span>
+            </a>
+          </div>
+          <div class="col-s-6">
+            <a (click)="toggleUserProfile('respondent')" href="#" class="btn btn-warning">
+              <span class="text">I am a respondent</span>
+            </a>
+          </div>
+        </div>
       </nav>
+
+
+
 
       <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -18,59 +32,17 @@
         </div>
 
 
-        <div class="row">
-          <div class="col-xl-6 col-lg-7">
-            <div class="card shadow mb-4">
-              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h5 class="m-0 font-weight-bold text-primary">Question generator</h5>
-              </div>
-              <div class="card-body">
+        <owner-view *ngIf="showOwnerView"></owner-view>
 
-              </div>
-            </div>
-          </div>
+        <respondent-view *ngIf="showRespondentView"></respondent-view>
 
-          <div class="col-xl-6 col-lg-7">
-            <div class="card shadow mb-4">
-              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h5 class="m-0 font-weight-bold text-primary">Question preview</h5>
-              </div>
-              <div class="card-body">
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-12 mb-4">
-            <div class="card shadow mb-4">
-              <div class="card-header py-3">
-                <h5 class="m-0 font-weight-bold text-primary">Results</h5>
-              </div>
-              <div class="card-body">
-                <h4 class="small font-weight-bold">answer 1<span class="float-right">x</span></h4>
-                <div class="progress mb-4">
-                  <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"></div>
-                </div>
-                <h4 class="small font-weight-bold">answer 2<span class="float-right">y</span></h4>
-                <div class="progress mb-4">
-                  <div class="progress-bar bg-danger" role="progressbar" style="width: 40%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
       </div>
 
     </div>
 
-    <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-        </div>
-      </div>
+    <footer class="sticky-footer">
+
     </footer>
 
   </div>

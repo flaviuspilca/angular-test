@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+
+export type UserType = 'owner' | 'respondent';
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +11,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'poll-app';
+  userType : UserType = 'owner';
+
+  get showOwnerView() {
+    return this.userType === 'owner';
+  }
+
+  get showRespondentView() {
+    return this.userType === 'respondent';
+  }
+
+  toggleUserProfile(type: UserType) {
+    this.userType = type;
+  }
 }
