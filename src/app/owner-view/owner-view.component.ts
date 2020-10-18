@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
 
 @Component({
@@ -7,25 +7,32 @@ import { FormControl } from '@angular/forms';
   templateUrl: './owner-view.component.html',
   styleUrls: ['./owner-view.component.css']
 })
+
+
 export class OwnerViewComponent implements OnInit {
 
-  questionText = new FormControl('');
-  validQuestion : Boolean = false;
+  constructor(private fb: FormBuilder) { }
 
-  constructor() { }
+  questionForm: FormGroup;
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.questionForm = this.fb.group({
+      text: [],
+      variants: this.fb.array([this.fb.group({point:''})])
+    })
   }
 
-
-  publishQuestion(validForm) {
-    this.validQuestion = !validForm;
-    return this.validQuestion;
+  get variants() {
+    return this.questionForm.get('variants') as FormArray;
   }
 
-  resetQuestion() {
-    this.questionText.setValue('');
-    this.validQuestion = false;
+  addVariant() {
+    this.variants.push(this.fb.group({point:''}));
   }
+
+  deleteVariant(index) {
+    this.variants.removeAt(index);
+  }
+
 
 }

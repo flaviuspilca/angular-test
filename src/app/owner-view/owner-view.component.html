@@ -5,28 +5,31 @@
         <h5 class="m-0 font-weight-bold text-primary">Question generator</h5>
       </div>
       <div class="card-body">
-        <label>
-          Please type below the question text
-          <input type="text" required maxlength="80" [formControl]="questionText">
-        </label>
 
 
-        <div *ngIf="questionText.invalid && (questionText.dirty || questionText.touched)" class="alert alert-danger">
-          <div>
-            Question text is required.
+
+        <form [formGroup]="questionForm">
+
+          <label>
+            Please type the question text: <input maxlength="80" formControlName="text" />
+          </label>
+
+          <div formArrayName="variants">
+            <div *ngFor="let item of variants.controls; let pointIndex=index" [formGroupName]="pointIndex">
+              <label>
+                {{pointIndex+1}}. <input maxlength="80" formControlName="point" />
+              </label>
+              <button type="button" (click)="deleteVariant(pointIndex)">X</button>
+            </div>
+            <button type="button" (click)="addVariant()">Add</button>
           </div>
-        </div>
+
+        </form>
+
+        {{ this.questionForm.value | json }}
 
 
 
-        <div>
-          <a (click)="publishQuestion(questionText.invalid && (questionText.dirty || questionText.touched))" href="#" class="btn btn-secondary">
-            <span class="text">Publish</span>
-          </a>
-          <a (click)="resetQuestion()" href="#" class="btn btn-danger">
-            <span class="text">Reset</span>
-          </a>
-        </div>
       </div>
     </div>
   </div>
@@ -37,11 +40,7 @@
         <h5 class="m-0 font-weight-bold text-primary">Question preview</h5>
       </div>
       <div class="card-body">
-        <div *ngIf="validQuestion">
-          <p>
-            Question: {{ questionText.value }}
-          </p>
-        </div>
+
       </div>
     </div>
   </div>
