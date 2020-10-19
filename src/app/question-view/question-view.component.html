@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-lg-6">
+  <div *ngIf="this.isOwner==='owner'" class="col-lg-6">
     <div class="card shadow mb-4">
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h5 class="m-0 font-weight-bold text-primary">Question generator</h5>
@@ -9,20 +9,25 @@
 
 
         <form [formGroup]="questionForm">
-
           <label>
-            Please type the question text: <input maxlength="80" formControlName="text" />
+            Please type the question text:
+            <input maxlength="80" formControlName="text" />
           </label>
 
           <div formArrayName="variants">
-            <div *ngFor="let item of variants.controls; let pointIndex=index" [formGroupName]="pointIndex">
+            <div *ngFor="let item of variants.controls; let variantIndex=index" [formGroupName]="variantIndex">
               <label>
-                {{pointIndex+1}}. <input maxlength="80" formControlName="point" />
+                {{variantIndex+1}}. <input maxlength="80" formControlName="variant" />
               </label>
-              <button type="button" (click)="deleteVariant(pointIndex)">X</button>
+              <a *ngIf="variantIndex<variants.controls.length-1" type="button" (click)="deleteVariant(variantIndex)"><fa-icon [icon]="faTrashAlt"></fa-icon></a>
+              <a *ngIf="variantIndex===variants.controls.length-1" type="button" (click)="addVariant()"><fa-icon [icon]="faPlus"></fa-icon></a>
             </div>
-            <button type="button" (click)="addVariant()">Add</button>
           </div>
+
+
+
+          <button class="btn btn-success" (click)="validateForm()">Publish</button>
+          <button class="btn btn-danger" (click)="resetForm()">Reset</button>
 
         </form>
 
@@ -40,7 +45,28 @@
         <h5 class="m-0 font-weight-bold text-primary">Question preview</h5>
       </div>
       <div class="card-body">
+        <form [formGroup]="questionForm">
 
+          <h3>{{ this.questionForm.value.text }}</h3>
+
+
+          <div>
+
+<div *ngFor="let opt of this.questionForm.value.variants">
+  <input
+    type="radio"
+    [value]="opt.variant">
+  <label>
+    {{opt.variant}}
+  </label>
+</div>
+
+          </div>
+
+
+
+
+        </form>
       </div>
     </div>
   </div>

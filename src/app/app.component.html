@@ -11,14 +11,14 @@
       <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
         <div class="row">
           <div class="col-s-6">
-            <a (click)="toggleUserProfile('owner')" href="#" class="btn btn-danger">
+            <button (click)="toggleUserProfile('owner')" class="btn btn-info">
               <span class="text">I am an owner</span>
-            </a>
+            </button>
           </div>
           <div class="col-s-6">
-            <a (click)="toggleUserProfile('respondent')" href="#" class="btn btn-warning">
+            <button (click)="toggleUserProfile('respondent')" class="btn btn-info">
               <span class="text">I am a respondent</span>
-            </a>
+            </button>
           </div>
         </div>
       </nav>
@@ -31,10 +31,7 @@
           <h1 class="h3 mb-0 text-gray-800">Sir Vote-a-lot</h1>
         </div>
 
-
-        <owner-view *ngIf="showOwnerView"></owner-view>
-
-        <respondent-view *ngIf="showRespondentView"></respondent-view>
+        <question-view [(isOwner)]="this.userType" formData="obj"></question-view>
 
 
       </div>

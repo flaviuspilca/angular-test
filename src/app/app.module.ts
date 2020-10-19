@@ -2,20 +2,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { OwnerViewComponent } from './owner-view/owner-view.component';
-import { RespondentViewComponent } from './respondent-view/respondent-view.component';
+import { QuestionViewComponent } from './question-view/question-view.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    OwnerViewComponent,
-    RespondentViewComponent
+    QuestionViewComponent
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
