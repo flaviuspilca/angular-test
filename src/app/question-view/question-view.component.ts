@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { faTrashAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+
 
 
 @Component({
@@ -19,12 +20,12 @@ export class QuestionViewComponent implements OnInit {
   questionForm: FormGroup;
   faTrashAlt = faTrashAlt;
   faPlus = faPlus;
-
+  toPublish = false;
 
 
   ngOnInit() {
     this.questionForm = this.fb.group({
-      text: [""],
+      text: ["", Validators.required],
       variants: this.fb.array([this.fb.group({variant:''})])
     });
   }
@@ -41,11 +42,16 @@ export class QuestionViewComponent implements OnInit {
     this.variants.removeAt(index);
   }
 
-  validateForm() {
-
+  publishForm() {
+    if( !this.questionForm.invalid ) this.toPublish = true;
   }
 
   resetForm() {
-
+    this.questionForm = this.fb.group({
+      text: [""],
+      variants: this.fb.array([this.fb.group({variant:''})])
+    });
+    this.toPublish = false;
   }
+
 }

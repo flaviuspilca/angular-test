@@ -1,70 +1,58 @@
 <div class="row">
-  <div *ngIf="this.isOwner==='owner'" class="col-lg-6">
+  <div *ngIf="this.isOwner==='owner'" [ngClass]="this.toPublish ? 'col-lg-6':'col-lg-12'">
     <div class="card shadow mb-4">
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h5 class="m-0 font-weight-bold text-primary">Question generator</h5>
       </div>
       <div class="card-body">
 
-
-
         <form [formGroup]="questionForm">
           <label>
             Please type the question text:
-            <input maxlength="80" formControlName="text" />
+            <input maxlength="80" formControlName="text" required />
           </label>
 
           <div formArrayName="variants">
             <div *ngFor="let item of variants.controls; let variantIndex=index" [formGroupName]="variantIndex">
               <label>
-                {{variantIndex+1}}. <input maxlength="80" formControlName="variant" />
+                {{variantIndex+1}}. <input maxlength="80" formControlName="variant" required/>
               </label>
               <a *ngIf="variantIndex<variants.controls.length-1" type="button" (click)="deleteVariant(variantIndex)"><fa-icon [icon]="faTrashAlt"></fa-icon></a>
-              <a *ngIf="variantIndex===variants.controls.length-1" type="button" (click)="addVariant()"><fa-icon [icon]="faPlus"></fa-icon></a>
+              <a *ngIf="variantIndex===variants.controls.length-1 && variants.controls.length < 10" type="button" (click)="addVariant()"><fa-icon [icon]="faPlus"></fa-icon></a>
             </div>
           </div>
 
+          {{this.questionForm.value.variants.length}}/10 possible answers
 
-
-          <button class="btn btn-success" (click)="validateForm()">Publish</button>
+          <button class="btn btn-success" (click)="publishForm()">Publish</button>
           <button class="btn btn-danger" (click)="resetForm()">Reset</button>
 
         </form>
 
-        {{ this.questionForm.value | json }}
-
-
+        <div *ngIf="!this.toPublish" class="alert alert-danger">
+          Form is invalid
+        </div>
 
       </div>
     </div>
   </div>
 
-  <div class="col-lg-6">
+  <div *ngIf="this.toPublish" [ngClass]="this.isOwner==='owner' ? 'col-lg-6':'col-lg-12'">
     <div class="card shadow mb-4">
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h5 class="m-0 font-weight-bold text-primary">Question preview</h5>
       </div>
       <div class="card-body">
         <form [formGroup]="questionForm">
-
           <h3>{{ this.questionForm.value.text }}</h3>
-
-
-          <div>
-
-<div *ngFor="let opt of this.questionForm.value.variants">
-  <input
-    type="radio"
-    [value]="opt.variant">
-  <label>
-    {{opt.variant}}
-  </label>
-</div>
-
+          <div *ngFor="let opt of this.questionForm.value.variants">
+            <input
+              type="radio"
+              [value]="opt.variant">
+            <label>
+              {{opt.variant}}
+            </label>
           </div>
-
-
-
 
         </form>
       </div>
@@ -72,20 +60,18 @@
   </div>
 </div>
 
-<div class="row">
+<div *ngIf="this.toPublish" class="row">
   <div class="col-lg-12 mb-4">
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h5 class="m-0 font-weight-bold text-primary">Results</h5>
       </div>
       <div class="card-body">
-        <h4 class="small font-weight-bold">answer 1<span class="float-right">x</span></h4>
-        <div class="progress mb-4">
-          <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"></div>
-        </div>
-        <h4 class="small font-weight-bold">answer 2<span class="float-right">y</span></h4>
-        <div class="progress mb-4">
-          <div class="progress-bar bg-danger" role="progressbar" style="width: 40%"></div>
+        <div *ngFor="let opt of this.questionForm.value.variants">
+          <h4 class="small font-weight-bold">{{opt.variant}}<span class="float-right">number of answers</span></h4>
+          <div class="progress mb-4">
+            <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"></div>
+          </div>
         </div>
       </div>
     </div>
