@@ -27,7 +27,7 @@ export class QuestionViewComponent implements OnInit {
   ngOnInit() {
     this.questionForm = this.fb.group({
       text: ["", Validators.required],
-      variants: this.fb.array([this.fb.group({variant:''})])
+      variants: this.fb.array([this.fb.group({variant:'', checked: false})])
     });
 
     this.onChanges();
@@ -59,7 +59,7 @@ export class QuestionViewComponent implements OnInit {
   }
 
   addVariant() {
-    this.variants.push(this.fb.group({variant:''}));
+    this.variants.push(this.fb.group({variant:'', checked: false}));
   }
 
   deleteVariant(index) {
@@ -74,11 +74,19 @@ export class QuestionViewComponent implements OnInit {
   resetForm() {
     this.questionForm = this.fb.group({
       text: [""],
-      variants: this.fb.array([this.fb.group({variant:''})])
+      variants: this.fb.array([this.fb.group({variant:'', checked: false})])
     });
     this.onChanges();
     this.toPublish = false;
     this.isValid = false;
+  }
+
+  selectOption(index) {
+    let selectedItem = this.questionForm.value.variants.findIndex(item => item.checked === true);
+    if( selectedItem > -1 && selectedItem !== index ) {
+      this.questionForm.get("variants."+selectedItem+".checked").setValue(false);
+    }
+    this.questionForm.get("variants."+index+".checked").setValue(true);
   }
 
   vote() {

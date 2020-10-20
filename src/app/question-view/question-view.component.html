@@ -37,6 +37,7 @@
           Please provide a valid question text and minimum two valid answer options.
         </div>
 
+
       </div>
     </div>
   </div>
@@ -49,9 +50,11 @@
       <div class="card-body">
         <form [formGroup]="questionForm">
           <h3>{{ this.questionForm.value.text }}</h3>
-          <div *ngFor="let opt of this.questionForm.value.variants">
+          <div *ngFor="let opt of this.questionForm.value.variants; let variantIndex=index">
             <input
               type="radio"
+              (click)="selectOption(variantIndex)"
+              [(checked)]="opt.checked"
               [value]="opt.variant">
             <label>
               {{opt.variant}}
