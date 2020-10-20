@@ -9,15 +9,15 @@
         <form [formGroup]="questionForm">
           <label>
             Please type the question text:
-            <input maxlength="80" formControlName="text" required />
+            <input maxlength="80" formControlName="text" />
           </label>
 
           <div formArrayName="variants">
             <div *ngFor="let item of variants.controls; let variantIndex=index" [formGroupName]="variantIndex">
               <label>
-                {{variantIndex+1}}. <input maxlength="80" formControlName="variant" required/>
+                {{variantIndex+1}}. <input maxlength="80" formControlName="variant"/>
               </label>
-              <a *ngIf="variantIndex>0" type="button" (click)="deleteVariant(variantIndex)"><fa-icon [icon]="faTrashAlt"></fa-icon></a>
+              <a *ngIf="variantIndex>0 || variantIndex===0 && variants.controls.length > 1" type="button" (click)="deleteVariant(variantIndex)"><fa-icon [icon]="faTrashAlt"></fa-icon></a>
               <a *ngIf="variantIndex===variants.controls.length-1 && variants.controls.length < 10" type="button" (click)="addVariant()"><fa-icon [icon]="faPlus"></fa-icon></a>
             </div>
           </div>
@@ -50,14 +50,14 @@
       <div class="card-body">
         <form [formGroup]="questionForm">
           <h3>{{ this.questionForm.value.text }}</h3>
-          <div *ngFor="let opt of this.questionForm.value.variants; let variantIndex=index">
+          <div *ngFor="let item of this.questionForm.value.variants; let variantIndex=index">
             <input
               type="radio"
               (click)="selectOption(variantIndex)"
-              [(checked)]="opt.checked"
-              [value]="opt.variant">
+              [(checked)]="item.checked"
+              [value]="item.variant">
             <label>
-              {{opt.variant}}
+              {{item.variant}}
             </label>
           </div>
 
@@ -80,12 +80,13 @@
         <h5 class="m-0 font-weight-bold text-primary">Results</h5>
       </div>
       <div class="card-body">
-        <div *ngFor="let opt of this.questionForm.value.variants">
-          <h4 class="small font-weight-bold">{{opt.variant}}<span class="float-right">number of answers</span></h4>
+        <div *ngFor="let item of this.questionForm.value.variants">
+          <h4 class="small font-weight-bold">{{item.variant}}<span class="float-right">{{item.counter}}</span></h4>
           <div class="progress mb-4">
-            <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"></div>
+            <div class="progress-bar bg-danger" role="progressbar" [ngStyle]="{'width':(item.counter*100)/this.votes+'%'}"></div>
           </div>
         </div>
+        Total votes: {{this.votes}}
       </div>
     </div>
   </div>

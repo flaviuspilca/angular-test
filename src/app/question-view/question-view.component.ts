@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { faTrashAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -23,11 +23,13 @@ export class QuestionViewComponent implements OnInit {
   toPublish = false;
   isValid = false;
   formInit = true;
+  chosenOption = null;
+  votes = 0;
 
   ngOnInit() {
     this.questionForm = this.fb.group({
-      text: ["", Validators.required],
-      variants: this.fb.array([this.fb.group({variant:'', checked: false})])
+      text: [""],
+      variants: this.fb.array([this.fb.group({variant:'', checked: false, counter: 0})])
     });
 
     this.onChanges();
@@ -59,10 +61,13 @@ export class QuestionViewComponent implements OnInit {
   }
 
   addVariant() {
-    this.variants.push(this.fb.group({variant:'', checked: false}));
+    this.variants.push(this.fb.group({variant:'', checked: false, counter: 0}));
   }
 
   deleteVariant(index) {
+    let selectedItem = this.questionForm.value.variants.findIndex(item => item.checked === true);
+    if( selectedItem > -1 ) this.questionForm.get("variants."+selectedItem+".checked").setValue(false);
+    this.votes = this.votes - this.questionForm.get('variants.'+index+'.counter').value;
     this.variants.removeAt(index);
   }
 
@@ -74,11 +79,12 @@ export class QuestionViewComponent implements OnInit {
   resetForm() {
     this.questionForm = this.fb.group({
       text: [""],
-      variants: this.fb.array([this.fb.group({variant:'', checked: false})])
+      variants: this.fb.array([this.fb.group({variant:'', checked: false, counter: 0})])
     });
     this.onChanges();
     this.toPublish = false;
     this.isValid = false;
+    this.votes = 0;
   }
 
   selectOption(index) {
@@ -87,10 +93,12 @@ export class QuestionViewComponent implements OnInit {
       this.questionForm.get("variants."+selectedItem+".checked").setValue(false);
     }
     this.questionForm.get("variants."+index+".checked").setValue(true);
+    this.chosenOption = index;
   }
 
   vote() {
-
+    this.questionForm.get("variants."+this.chosenOption+".counter").setValue(this.questionForm.get("variants."+this.chosenOption+".counter").value+1);
+    this.votes++;
   }
 
 }
