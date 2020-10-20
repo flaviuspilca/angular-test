@@ -21,12 +21,36 @@ export class QuestionViewComponent implements OnInit {
   faTrashAlt = faTrashAlt;
   faPlus = faPlus;
   toPublish = false;
-
+  isValid = false;
+  formInit = true;
 
   ngOnInit() {
     this.questionForm = this.fb.group({
       text: ["", Validators.required],
       variants: this.fb.array([this.fb.group({variant:''})])
+    });
+
+    this.onChanges();
+  }
+
+  onChanges(): void {
+    this.formInit = true;
+    this.questionForm.valueChanges.subscribe(val => {
+      if( val.text.trim().length === 0 ) this.questionForm.get("text").setValue(val.text.trim(), { emitEvent: false })
+      for( let i=0; i<val.variants.length; i++ ){
+        if( val.variants[i].variant.trim().length === 0 ) this.questionForm.get("variants."+i+".variant").setValue(val.variants[i].variant.trim(), { emitEvent: false })
+      }
+
+      if( val.text.trim().length > 0 && val.variants.length > 1){
+        if( val.variants.filter(item => {return item.variant.trim().length === 0}).length > 0 ) {
+          this.isValid = false;
+          this.toPublish = false;
+        }
+        else this.isValid = true;
+      }else{
+        this.isValid = false;
+        this.toPublish = false;
+      }
     });
   }
 
@@ -43,7 +67,8 @@ export class QuestionViewComponent implements OnInit {
   }
 
   publishForm() {
-    if( !this.questionForm.invalid ) this.toPublish = true;
+    this.toPublish = this.isValid;
+    this.formInit = this.isValid;
   }
 
   resetForm() {
@@ -51,7 +76,13 @@ export class QuestionViewComponent implements OnInit {
       text: [""],
       variants: this.fb.array([this.fb.group({variant:''})])
     });
+    this.onChanges();
     this.toPublish = false;
+    this.isValid = false;
+  }
+
+  vote() {
+
   }
 
 }

@@ -17,20 +17,24 @@
               <label>
                 {{variantIndex+1}}. <input maxlength="80" formControlName="variant" required/>
               </label>
-              <a *ngIf="variantIndex<variants.controls.length-1" type="button" (click)="deleteVariant(variantIndex)"><fa-icon [icon]="faTrashAlt"></fa-icon></a>
+              <a *ngIf="variantIndex>0" type="button" (click)="deleteVariant(variantIndex)"><fa-icon [icon]="faTrashAlt"></fa-icon></a>
               <a *ngIf="variantIndex===variants.controls.length-1 && variants.controls.length < 10" type="button" (click)="addVariant()"><fa-icon [icon]="faPlus"></fa-icon></a>
             </div>
           </div>
 
-          {{this.questionForm.value.variants.length}}/10 possible answers
+          <div [ngStyle]="{'height':'50px', 'position': 'relative'}">
+            <div [ngStyle]="{'position': 'absolute', 'bottom':'0'}">{{this.questionForm.value.variants.length}}/10 possible answers</div>
+            <div [ngStyle]="{'position': 'absolute', 'bottom':'0', 'right':'0'}">
+              <button class="btn btn-success" (click)="publishForm()">Publish</button>
+              <button class="btn btn-danger" (click)="resetForm()">Reset</button>
+            </div>
+          </div>
 
-          <button class="btn btn-success" (click)="publishForm()">Publish</button>
-          <button class="btn btn-danger" (click)="resetForm()">Reset</button>
 
         </form>
 
-        <div *ngIf="!this.toPublish" class="alert alert-danger">
-          Form is invalid
+        <div *ngIf="!this.toPublish && !this.formInit" class="alert alert-danger">
+          Please provide a valid question text and minimum two valid answer options.
         </div>
 
       </div>
@@ -52,6 +56,12 @@
             <label>
               {{opt.variant}}
             </label>
+          </div>
+
+          <div [ngStyle]="{'height':'50px', 'position': 'relative'}">
+            <div [ngStyle]="{'position': 'absolute', 'bottom':'0', 'right':'0'}">
+              <button class="btn btn-success" (click)="vote()">Vote</button>
+            </div>
           </div>
 
         </form>
