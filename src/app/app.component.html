@@ -1,47 +1,49 @@
-<div id="wrapper">
+<div class="content" role="main">
+  <div id="wrapper">
 
-  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-    <!-- Sidebar -->
-  </ul>
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <!-- Sidebar -->
+    </ul>
 
 
-  <div id="content-wrapper" class="d-flex flex-column">
-    <div id="content">
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
 
-      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-        <div class="row">
-          <div class="col-s-6">
-            <button (click)="toggleUserProfile('owner')" class="btn btn-info">
-              <span class="text">I am an owner</span>
-            </button>
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+          <div class="row">
+            <div class="col-s-6">
+              <button (click)="toggleUserProfile('owner')" class="btn btn-info">
+                <span class="text">I am an owner</span>
+              </button>
+            </div>
+            <div class="col-s-6">
+              <button (click)="toggleUserProfile('respondent')" class="btn btn-info">
+                <span class="text">I am a respondent</span>
+              </button>
+            </div>
           </div>
-          <div class="col-s-6">
-            <button (click)="toggleUserProfile('respondent')" class="btn btn-info">
-              <span class="text">I am a respondent</span>
-            </button>
+        </nav>
+
+
+
+
+        <div class="container-fluid">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Sir Vote-a-lot</h1>
           </div>
+
+          <question-view [(isOwner)]="this.userType"></question-view>
+
+
         </div>
-      </nav>
-
-
-
-
-      <div class="container-fluid">
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 class="h3 mb-0 text-gray-800">Sir Vote-a-lot</h1>
-        </div>
-
-        <question-view [(isOwner)]="this.userType"></question-view>
-
 
       </div>
 
+      <footer class="sticky-footer">
+
+      </footer>
+
     </div>
 
-    <footer class="sticky-footer">
-
-    </footer>
-
   </div>
-
 </div>

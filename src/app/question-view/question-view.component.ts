@@ -38,7 +38,7 @@ export class QuestionViewComponent implements OnInit {
   onChanges(): void {
     this.formInit = true;
     this.questionForm.valueChanges.subscribe(val => {
-      if( val.text.trim().length === 0 ) this.questionForm.get("text").setValue(val.text.trim(), { emitEvent: false })
+      if( val.text.trim().length === 0 ) this.questionForm.get("text").setValue(val.text.trim(), { emitEvent: false });
       for( let i=0; i<val.variants.length; i++ ){
         if( val.variants[i].variant.trim().length === 0 ) this.questionForm.get("variants."+i+".variant").setValue(val.variants[i].variant.trim(), { emitEvent: false })
       }
