@@ -84,6 +84,7 @@ export class QuestionViewComponent implements OnInit {
     this.onChanges();
     this.toPublish = false;
     this.isValid = false;
+    this.chosenOption = null;
     this.votes = 0;
   }
 
@@ -97,8 +98,15 @@ export class QuestionViewComponent implements OnInit {
   }
 
   vote() {
-    this.questionForm.get("variants."+this.chosenOption+".counter").setValue(this.questionForm.get("variants."+this.chosenOption+".counter").value+1);
-    this.votes++;
+    if( this.chosenOption !== null ) {
+      this.questionForm.get("variants."+this.chosenOption+".counter").setValue(this.questionForm.get("variants."+this.chosenOption+".counter").value+1);
+      this.votes++;
+      let selectedItem = this.questionForm.value.variants.findIndex(item => item.checked === true);
+      if( selectedItem > -1 ) {
+        this.questionForm.get("variants."+selectedItem+".checked").setValue(false);
+      }
+      this.chosenOption = null;
+    }
   }
 
 }

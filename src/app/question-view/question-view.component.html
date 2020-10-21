@@ -1,5 +1,5 @@
 <div class="row">
-  <div *ngIf="this.isOwner==='owner'" [ngClass]="this.toPublish ? 'col-lg-6':'col-lg-12'">
+  <div *ngIf="this.isOwner==='owner'" [ngClass]="this.toPublish || this.isOwner? 'col-lg-6':'col-lg-12'">
     <div class="card shadow mb-4">
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h5 class="m-0 font-weight-bold text-primary">Question generator</h5>
@@ -42,12 +42,12 @@
     </div>
   </div>
 
-  <div *ngIf="this.toPublish" [ngClass]="this.isOwner==='owner' ? 'col-lg-6':'col-lg-12'">
+  <div [ngClass]="this.isOwner==='owner' ? 'col-lg-6':'col-lg-12'">
     <div class="card shadow mb-4">
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h5 class="m-0 font-weight-bold text-primary">Question preview</h5>
       </div>
-      <div class="card-body">
+      <div *ngIf="this.toPublish" class="card-body">
         <form [formGroup]="questionForm">
           <h3>{{ this.questionForm.value.text }}</h3>
           <div *ngFor="let item of this.questionForm.value.variants; let variantIndex=index">
@@ -68,6 +68,9 @@
           </div>
 
         </form>
+      </div>
+      <div *ngIf="!this.toPublish" class="card-body">
+        There is no published question
       </div>
     </div>
   </div>
