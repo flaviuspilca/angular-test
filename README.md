@@ -14,8 +14,8 @@ The view switch between these two user roles can be made using the top left two 
 As an 'owner' you can first type in a question text and then add answer options until the limit of 10 answers is reached.
 The question text and answers must be valid alphanumerical strings. Symbol characters are also accepted.
 There is no possibility to provide an empty string as question text or answer.
-Once the owner provides a valid question text and at least two valid answer options the 'Publish' button, once clicked, will show the newly generated question with the option to vote for any of the given responses. Also, in the bottom of the page there will be displayed a statistic view, showing the total votes and how many votes each response got.
-The owner has also the possibility to destroy the created question, by clicking 'Reset' button. This button will also clear the other two views: the published question view and the results view.
+Once the owner provides a valid question text and at least two valid answer options, the 'Publish' button, once clicked, will show the newly generated question with the option to vote for any of the given responses. Also, in the bottom of the page there will be displayed a statistic view, showing the total votes and how many votes each response got.
+The owner has also the possibility to destroy the created question, by clicking 'Reset' button. This button will also clear the other two views: the published question view and the results view. It will also clear all the votes provided until that time.
 
 ### Respondent view
 
