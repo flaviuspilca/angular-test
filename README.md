@@ -29,4 +29,6 @@ The respondent has only the ability to vote for the given responses.
 
 This project was developed using Angular 10 and Bootstrap.
 
+# Demo link
 
+https://flaviuspilca.github.io/poll-app/
