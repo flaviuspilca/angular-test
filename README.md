@@ -25,7 +25,7 @@ The respondent has only the ability to vote for the given responses.
 
 
 
-#Technical info
+# Technical info
 
 This small project was developed using Angular 10 and Bootstrap.
 
