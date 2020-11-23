@@ -2,6 +2,25 @@
 
 This app allows a user to create a question, visualise it and see the results in real time.
 
+
+Use cases
+• As the owner, I want to change my poll question.
+• As the owner, I want to add, edit or remove the options of my poll.
+• As the owner, I want to reset the whole form, including answers.
+• As the user, I want to see the UI refresh automatically when something changes.
+• As the respondent, I want to send several answers.
+• As the respondent, I want to see the changes in real time.
+
+Non-functional requirements
+• All fields have a limit of 80 characters.
+• When the limit is reached, fields should be disabled.
+• There should be always at least 2 options.
+• The user can vote as many times as possible.
+• The chart needs to adapt to the changes in the amount of answers or labels without missing
+values.
+• The reset button should reset the whole UI: question, options and answers.
+
+
 There are two types of users that can use this app: 
 
 - the 'owner' which is the person that generates the question and has full permissions on it;
