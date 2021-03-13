@@ -1,0 +1,14 @@
+<input type="text" id="filter-text-box" placeholder="Filter..." (keyup)="onFilterTextBoxChanged($event)">
+
+
+
+<ag-grid-angular
+  #agGrid
+  style="height: calc(100vh - 200px)"
+  class="ag-theme-alpine"
+  animateRows
+  suppressDragLeaveHidesColumns="true"
+  [rowData]="rowData"
+  [columnDefs]="columnDefs"
+>
+</ag-grid-angular>

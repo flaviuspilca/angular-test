@@ -1,0 +1,47 @@
+<div class="container">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-sm-12">
+        <label class="w-100 d-inline-flex">
+          <div class="w-25">Product Name:</div>
+          <div><input type="text" maxlength="50" formControlName="productName"></div>
+        </label>
+      </div>
+    </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <label class="w-100 d-inline-flex">
+        <div class="w-25">Product ID:</div>
+        <div><input type="number" maxlength="13"
+                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                    formControlName="productId"></div>
+      </label>
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <label class="w-100 d-inline-flex">
+          <div class="w-25">Product Manager:</div>
+          <div><input type="text" maxlength="30" formControlName="productManager"></div>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <label class="w-100 d-inline-flex">
+          <div class="w-25">Sales start date:</div>
+          <div><input type="date" formControlName="saleDate"></div>
+        </label>
+      </div>
+    </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <button type="submit" class="btn btn-success" [disabled]="!profileForm.valid">Submit</button>
+      <button type="reset" class="btn btn-danger">Reset</button>
+    </div>
+  </div>
+
+
+
+  </form>
+</div>

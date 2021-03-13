@@ -9,31 +9,20 @@
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
 
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-          <div class="row">
-            <div class="col-s-6">
-              <button (click)="toggleUserProfile('owner')" class="btn btn-info">
-                <span class="text">I am an owner</span>
-              </button>
-            </div>
-            <div class="col-s-6">
-              <button (click)="toggleUserProfile('respondent')" class="btn btn-info">
-                <span class="text">I am a respondent</span>
-              </button>
-            </div>
+        <nav *ngIf="this.userStatus" class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+          <div class="navbar-nav">
+            <nav-dropdown (navEvent)=getCurrentRoute($event)></nav-dropdown>
+            <button class="btn btn-outline-primary btn-lg h-25" (click)="logout()">
+              Logout
+            </button>
           </div>
         </nav>
 
 
-
-
         <div class="container-fluid">
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Sir Vote-a-lot</h1>
-          </div>
 
-          <question-view [(isOwner)]="this.userType"></question-view>
-
+          <login (loginEvent)=loginMessage($event) [(isAuthenticated)] = this.userStatus></login>
+          <welcome [(isAuthenticated)] = this.userStatus [(currentRoute)]=this.currentRoute [potatoes]=this.potatoes></welcome>
 
         </div>
 
