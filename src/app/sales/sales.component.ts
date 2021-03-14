@@ -80,7 +80,7 @@ export class SalesComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.rowData = this.potatoes.data;
+    this.rowData = this.potatoes['data'];
   }
 
    onFilterTextBoxChanged(e) {
